@@ -20,15 +20,16 @@ for i  = 1:1:length(SNR_dB)
     
     %% Transmission System
     %r(n) = y(n) + z(n)
-    r = AWGN(modulated_symbol, i);
+    r = AWGN(modulated_symbol, SNR_dB(i));
     % r = modulated_symbol; % noise 가 끼지 않았을 때
     
     
     %받은 거 그리기
-    
-    figure(1);
-    hold on;
-    plot(real(r), imag(r), "ro");
+    if i==10
+        figure(1);
+        hold on;
+        plot(real(r), imag(r), "ro");
+    end
     
     
     %% 복조
@@ -105,4 +106,3 @@ function [r] = AWGN(y, SNR_dB)
     z = sqrt(1/2*transmit_power)*(randn(1, length(y)) +1j*randn(1, length(y)) );
     r = y+z;
 end
-
